@@ -14,5 +14,6 @@ namespace WebModels
         public string cus_Address { get; set; }
         public string cus_Email { get; set; }
         public string cus_Password { get; set; }
+        public string cus_Category { get; set; }
     }
 }
