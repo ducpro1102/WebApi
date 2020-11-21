@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace WebModels
 {
-    public class Bill
-    {
-        public int bil_ID { get; set; }
-        public int cus_ID { get; set; }
-        public int hou_ID { get; set; }
-        public int money { get; set; }
-        public string status { get; set; }
-        public string level { get; set; }
-        public int changed_date { get; set; }
+	public class Bill
+	{
+        public decimal bil_ID { get; set; }
+		public decimal cus_ID { get; set; }
+        public string MyProperty { get; set; }
+        public decimal price { get; set; }
+		public string status { get; set; }
+		public string level { get; set; }
+		public string changed_date { get; set; }
+		public string category { get; set; }
+        public string bil_description { get; set; }
     }
 }

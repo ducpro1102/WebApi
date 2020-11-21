@@ -11,7 +11,7 @@ namespace WebAPI.Controllers
         public IHttpActionResult CreateHouse(int cus_ID, int street_ID, int district_ID,
                                        int province_ID, int area_ID, int ward_ID, string address_detail,
                                        int floor_area, int u_floor_area, int horizontal, int vertical,
-                                       string house_category, int nobedroom, int notoilet, string direction)
+                                       string house_category, int nobedroom, int notoilet, string direction ,string h_description)
         {
             GenericService<House> generic = new GenericService<House>();
             DynamicParameters parameter = new DynamicParameters();
@@ -30,6 +30,7 @@ namespace WebAPI.Controllers
             parameter.Add("@nobedroom", nobedroom);
             parameter.Add("@notoilet", notoilet);
             parameter.Add("@direction", direction);
+            parameter.Add("@h_description", h_description);
 
             var stdList = generic.ExcuteNoneQuery("pro_add_house", parameter);
             return Ok();
@@ -38,7 +39,7 @@ namespace WebAPI.Controllers
         public IHttpActionResult EditHouse(int hou_ID, int cus_ID, int street_ID, int district_ID,
             int province_ID, int area_ID, int ward_ID, string address_detail,
                                         int floor_area, int u_floor_area, int horizontal, int vertical,
-                                        string house_category, int nobedroom, int notoilet, string direction)
+                                        string house_category, int nobedroom, int notoilet, string direction,string h_description)
         {
             GenericService<House> generic = new GenericService<House>();
             DynamicParameters parameter = new DynamicParameters();
@@ -58,6 +59,7 @@ namespace WebAPI.Controllers
             parameter.Add("@nobedroom", nobedroom);
             parameter.Add("@notoilet", notoilet);
             parameter.Add("@direction", direction);
+            parameter.Add("@h_description", h_description);
             var stdList = generic.ExcuteNoneQuery("pro_edit_all_house", parameter);
             return Ok();
         }
@@ -84,7 +86,8 @@ namespace WebAPI.Controllers
             parameter.Add("@nobedroom", nobedroom);
             parameter.Add("@notoilet", notoilet);
             parameter.Add("@direction", direction);
-            var stdList = generic.ExcuteMany("pro_edit_all_house", parameter);
+           
+            var stdList = generic.ExcuteMany("pro_view_all_house", parameter);
             return Ok(stdList);
         }
         [HttpPost]
