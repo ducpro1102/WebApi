@@ -9,8 +9,8 @@ namespace WebModels
     public class District
     {
         public int id { get; set; }
-        public int _name { get; set; }
-        public int _prefix { get; set; }
+        public string _name { get; set; }
+        public string _prefix { get; set; }
         public int _province_id { get; set; }
     }
 }

@@ -19,9 +19,6 @@ namespace WebAPI.Controllers
         {
             _repo = new AuthRepository();
         }
-        //Đăng ký(Hùng)
-        //Login(Hùng)
-
 
         // POST api/Account/Register
         [AllowAnonymous]

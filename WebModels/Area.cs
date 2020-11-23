@@ -9,7 +9,7 @@ namespace WebModels
     public class Area
     {
         public int id { get; set; }
-        public int _name { get; set; }
+        public string _name { get; set; }
         public int _province_id { get; set; }
         public int _district_id { get; set; }
         public float _lat { get; set; }

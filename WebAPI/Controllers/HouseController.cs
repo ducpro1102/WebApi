@@ -7,6 +7,8 @@ namespace WebAPI.Controllers
 {
     public class HouseController : ApiController
     {
+
+        [Authorize]
         [HttpPost]
         public IHttpActionResult CreateHouse(int cus_ID, int street_ID, int district_ID,
                                        int province_ID, int area_ID, int ward_ID, string address_detail,
@@ -64,6 +66,7 @@ namespace WebAPI.Controllers
             return Ok();
         }
         [HttpGet]
+        [AllowAnonymous]
         public IHttpActionResult ViewAllHouse(int cus_ID, int street_ID, int district_ID,
             int province_ID, int area_ID, int ward_ID, string address_detail,
             int floor_area, int u_floor_area, int horizontal, int vertical,
@@ -99,6 +102,7 @@ namespace WebAPI.Controllers
             var stdList = generic.ExcuteMany("pro_delete_all_house", parameter);
             return Ok();
         }
+        [AllowAnonymous]
         [HttpGet]
         public IHttpActionResult ViewHouse()
         {
