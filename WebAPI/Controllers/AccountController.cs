@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using WebModel;
 using WebModels;
 
 namespace WebAPI.Controllers
@@ -25,21 +26,23 @@ namespace WebAPI.Controllers
         [Route("Register")]
         public async Task<IHttpActionResult> Register(UserModel userModel)
         {
+            MgsResult objMgsResult = new MgsResult();
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                objMgsResult.state = 3;
+                objMgsResult.message = "Bạn phải nhập đầy đủ thông tin";
+                return Json(objMgsResult);
             }
 
             IdentityResult result = await _repo.RegisterUser(userModel);
 
-            IHttpActionResult errorResult = GetErrorResult(result);
+            objMgsResult = GetErrorResult(result);
 
-            if (errorResult != null)
+            if (objMgsResult.state != null && objMgsResult.state != 1)
             {
-                return errorResult;
+                return Json(objMgsResult);
             }
-
-            return Ok();
+            return Json(objMgsResult);
         }
 
         protected override void Dispose(bool disposing)
@@ -51,12 +54,15 @@ namespace WebAPI.Controllers
 
             base.Dispose(disposing);
         }
-
-        private IHttpActionResult GetErrorResult(IdentityResult result)
+        
+        private MgsResult GetErrorResult(IdentityResult result)
         {
+            MgsResult objMgsResult = new MgsResult();
             if (result == null)
             {
-                return InternalServerError();
+                objMgsResult.state = 2;
+                objMgsResult.message = "InternalServerError";
+                return objMgsResult;
             }
 
             if (!result.Succeeded)
@@ -66,19 +72,16 @@ namespace WebAPI.Controllers
                     foreach (string error in result.Errors)
                     {
                         ModelState.AddModelError("", error);
+                        objMgsResult.message = objMgsResult.message + ". " + error;
                     }
                 }
-
-                if (ModelState.IsValid)
-                {
-                    // No ModelState errors are available to send, so just return an empty BadRequest.
-                    return BadRequest();
-                }
-
-                return BadRequest(ModelState);
+                objMgsResult.state = 2;
+                return objMgsResult;
             }
 
-            return null;
+            objMgsResult.state = 1;
+            objMgsResult.message = "Ok";
+            return objMgsResult;
         }
     }
 }

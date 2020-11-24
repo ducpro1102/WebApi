@@ -1,4 +1,7 @@
 ﻿using Dapper;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Web.Http;
 using WebModels;
 using WebServices;
@@ -106,6 +109,17 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IHttpActionResult ViewHouse()
         {
+
+            ////////////////////////////
+            //1.
+            //var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
+            //string strClaim = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "sub").Value;
+            ////2.
+            //var userIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
+            //var claims = userIdentity.Claims;
+            //var roles = claims.Where(c => c.Type == ClaimTypes.Role).ToList();
+            ////////////////////////////
+            
             GenericService<House> generic = new GenericService<House>();
             var stdList = generic.ExcuteMany("view_all_house", null);
             return Ok(stdList);
