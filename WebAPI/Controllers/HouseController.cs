@@ -112,11 +112,7 @@ namespace WebAPI.Controllers
             ////////////////////////////
             //1.
             var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
-<<<<<<< HEAD
             string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
-=======
-            string UserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
->>>>>>> c2759bf166e9a35cd0ec1b7eb3b4e65362d9abb8
             ////2.
             //var userIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
             //var claims = userIdentity.Claims;
