@@ -50,7 +50,9 @@
     <Compile Include="Customer.cs" />
     <Compile Include="District.cs" />
     <Compile Include="House.cs" />
+    <Compile Include="HouseTest.cs" />
     <Compile Include="Image.cs" />
+    <Compile Include="MgsResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Province.cs" />
     <Compile Include="Role.cs" />

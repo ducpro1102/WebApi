@@ -70,29 +70,17 @@ namespace WebAPI.Controllers
         }
         [HttpGet]
         [AllowAnonymous]
-        public IHttpActionResult ViewAllHouse(int cus_ID, int street_ID, int district_ID,
-            int province_ID, int area_ID, int ward_ID, string address_detail,
-            int floor_area, int u_floor_area, int horizontal, int vertical,
-            string house_category, int nobedroom, int notoilet, string direction)
+        public IHttpActionResult ViewAllHouse(int province_ID,
+            int floor_area, string house_category, int price)
         {
             GenericService<House> generic = new GenericService<House>();
             DynamicParameters parameter = new DynamicParameters();
-            parameter.Add("@cus_ID", cus_ID);
-            parameter.Add("@street_ID", street_ID);
-            parameter.Add("@district_ID", district_ID);
-            parameter.Add("@province_ID", province_ID);
-            parameter.Add("@area_ID", area_ID);
-            parameter.Add("@ward_ID", ward_ID);
-            parameter.Add("@address_detail", address_detail);
-            parameter.Add("@floor_area", floor_area);
-            parameter.Add("@u_floor_area", u_floor_area);
-            parameter.Add("@horizontal", horizontal);
-            parameter.Add("@vertical", vertical);
-            parameter.Add("@house_category", house_category);
-            parameter.Add("@nobedroom", nobedroom);
-            parameter.Add("@notoilet", notoilet);
-            parameter.Add("@direction", direction);
            
+            parameter.Add("@province_ID", province_ID);
+            parameter.Add("@floor_area", floor_area);
+            parameter.Add("@house_category", house_category);
+            parameter.Add("@price", price);
+
             var stdList = generic.ExcuteMany("pro_view_all_house", parameter);
             return Ok(stdList);
         }
@@ -103,8 +91,19 @@ namespace WebAPI.Controllers
             DynamicParameters parameter = new DynamicParameters();
             parameter.Add("@hou_ID", hou_ID);
             var stdList = generic.ExcuteMany("pro_delete_all_house", parameter);
-            return Ok();
+            return Ok(stdList);
         }
+        [HttpGet]
+        public IHttpActionResult GetHouse(int hou_ID)
+        {
+            GenericService<House> generic = new GenericService<House>();
+            DynamicParameters parameter = new DynamicParameters();
+            parameter.Add("@hou_ID", hou_ID);
+            var hou = generic.ExcuteSingle("pro_get_house", parameter);
+            return Ok(hou);
+        }
+
+
         [AllowAnonymous]
         [HttpGet]
         public IHttpActionResult ViewHouse()
@@ -113,7 +112,11 @@ namespace WebAPI.Controllers
             ////////////////////////////
             //1.
             var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
+<<<<<<< HEAD
             string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
+=======
+            string UserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
+>>>>>>> c2759bf166e9a35cd0ec1b7eb3b4e65362d9abb8
             ////2.
             //var userIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
             //var claims = userIdentity.Claims;
