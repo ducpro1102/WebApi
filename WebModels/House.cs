@@ -13,7 +13,7 @@ namespace WebModels
         public decimal street_ID { get; set; }
         public decimal district_ID { get; set; }
         public decimal province_ID { get; set; }
-        public decimal area_ID { get; set; }
+        public decimal area_ID { get; set; }  
         public decimal ward_ID { get; set; }
         public string address_detail { get; set; }
         public decimal floor_area { get; set; }
