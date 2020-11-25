@@ -111,14 +111,14 @@ namespace WebAPI.Controllers
 
             ////////////////////////////
             //1.
-            //var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
-            //string UserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
+            var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
+            string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
             ////2.
             //var userIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
             //var claims = userIdentity.Claims;
             //var roles = claims.Where(c => c.Type == ClaimTypes.Role).ToList();
             ////////////////////////////
-            
+
             GenericService<House> generic = new GenericService<House>();
             var stdList = generic.ExcuteMany("view_all_house", null);
             return Ok(stdList);
