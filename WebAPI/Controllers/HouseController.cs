@@ -111,8 +111,8 @@ namespace WebAPI.Controllers
 
             ////////////////////////////
             //1.
-            var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
-            string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
+            //var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
+            //string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
             ////2.
             //var userIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
             //var claims = userIdentity.Claims;
