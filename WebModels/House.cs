@@ -25,5 +25,8 @@ namespace WebModels
         public decimal notoilet { get; set; }
         public string direction { get; set; }
         public string h_description { get; set; }
+        public string url_Img { get; set; }
+        public string b_description { get; set; }
+        public decimal price { get; set; }
     }
 }
