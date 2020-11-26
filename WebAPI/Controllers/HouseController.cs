@@ -68,7 +68,7 @@ namespace WebAPI.Controllers
             var stdList = generic.ExcuteNoneQuery("pro_edit_all_house", parameter);
             return Ok();
         }
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
         public IHttpActionResult ViewAllHouse(int? province_ID,
             int? floor_area, string house_category, int? price)
