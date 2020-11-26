@@ -25,6 +25,8 @@ namespace WebModels
         public long notoilet { get; set; }
         public string direction { get; set; }
         public string h_description { get; set; }
+        public long price { get; set; }
+        public string b_description { get; set; }
         public string url_image1 { get; set; }
         public string url_image2 { get; set; }
         public string url_image3 { get; set; }
