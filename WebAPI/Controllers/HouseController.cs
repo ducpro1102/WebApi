@@ -15,8 +15,8 @@ namespace WebAPI.Controllers
         [HttpPost]
         public IHttpActionResult CreateHouse(int cus_ID, int street_ID, int district_ID,
                                        int province_ID, int area_ID, int ward_ID, string address_detail,
-                                       int floor_area, int u_floor_area, int horizontal, int vertical,
-                                       string house_category, int nobedroom, int notoilet, string direction ,string h_description)
+                                       int? floor_area, int? u_floor_area, int? horizontal, int? vertical,
+                                       string house_category, int? nobedroom, int? notoilet, string direction ,string h_description)
         {
             GenericService<House> generic = new GenericService<House>();
             DynamicParameters parameter = new DynamicParameters();
@@ -70,8 +70,8 @@ namespace WebAPI.Controllers
         }
         [HttpGet]
         [AllowAnonymous]
-        public IHttpActionResult ViewAllHouse(int province_ID,
-            int floor_area, string house_category, int price)
+        public IHttpActionResult ViewAllHouse(int? province_ID,
+            int? floor_area, string house_category, int? price)
         {
             GenericService<House> generic = new GenericService<House>();
             DynamicParameters parameter = new DynamicParameters();
@@ -111,8 +111,8 @@ namespace WebAPI.Controllers
 
             ////////////////////////////
             //1.
-            var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
-            string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
+            //var claimsIdentity = (ClaimsIdentity)RequestCont0ext.Principal.Identity;
+            //string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
             ////2.
             //var userIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
             //var claims = userIdentity.Claims;

@@ -34,7 +34,12 @@ namespace WebAPI.Provider
             //IdentityUserRole
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim("UserName", context.UserName));
-            identity.AddClaim(new Claim(ClaimTypes.Role, "Customer"));
+            identity.AddClaim(new Claim("role", "Customer"));
+
+            //context.Validated(identity);
+            //var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            //identity.AddClaim(new Claim("userName", context.UserName));
+            //identity.AddClaim(new Claim(ClaimTypes.Role, "Customer"));
             context.Validated(identity);
 
         }
