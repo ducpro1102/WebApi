@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using WebModels;
@@ -29,7 +30,8 @@ namespace WebAPI
             };
 
             var result = await _userManager.CreateAsync(user, userModel.Password);
-
+            await _userManager.AddClaimAsync(user.Id, new Claim("FullName", userModel.FullName));
+            await _userManager.AddClaimAsync(user.Id, new Claim("Address", userModel.Address));
             return result;
         }
 
@@ -39,7 +41,12 @@ namespace WebAPI
 
             return user;
         }
-
+        public async Task<IList<Claim>> FindAllClaims(string userName, string password)
+        {
+            IdentityUser user = await _userManager.FindAsync(userName, password);
+            var lstClaim = await _userManager.GetClaimsAsync(user.Id);
+            return lstClaim;
+        }
         public void Dispose()
         {
             _ctx.Dispose();

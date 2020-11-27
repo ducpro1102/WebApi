@@ -16,8 +16,10 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IHttpActionResult ViewProvince()
         {
-            //var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
-            //string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
+            var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
+            string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
+            string strFullName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "FullName").Value;
+
             GenericService<Province> generic = new GenericService<Province>();
             var proList = generic.ExcuteMany("pro_view_all_province", null);
             return Ok(proList);

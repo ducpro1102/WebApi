@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
 
             objMgsResult = GetErrorResult(result);
 
-            if (objMgsResult.state != null && objMgsResult.state != 1)
+            if (objMgsResult.state != 1)
             {
                 return Json(objMgsResult);
             }

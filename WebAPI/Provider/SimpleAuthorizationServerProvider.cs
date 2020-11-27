@@ -21,25 +21,22 @@ namespace WebAPI.Provider
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            using (AuthRepository _repo = new AuthRepository())
+            AuthRepository _repo = new AuthRepository();
+            IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
+            if (user == null)
             {
-                IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
-
-                if (user == null)
-                {
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
-                    return;
-                }
+                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                return;
             }
             //IdentityUserRole
+            var claims = await _repo.FindAllClaims(context.UserName, context.Password);
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim("UserName", context.UserName));
-            identity.AddClaim(new Claim("role", "Customer"));
-
-            //context.Validated(identity);
-            //var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            //identity.AddClaim(new Claim("userName", context.UserName));
-            //identity.AddClaim(new Claim(ClaimTypes.Role, "Customer"));
+            identity.AddClaim(new Claim(ClaimTypes.Role, "Customer"));
+            foreach(var claim in claims)
+            {
+                identity.AddClaim(new Claim(claim.Type, claim.Value));
+            }
             context.Validated(identity);
 
         }
