@@ -180,7 +180,6 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Common\CommonAreaRegistration.cs" />
-    <Compile Include="Areas\Customer\Controllers\HouseController.cs" />
     <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -216,7 +215,6 @@
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\BillController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HouseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -279,6 +277,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Common\Controllers\" />
+    <Folder Include="Areas\Customer\Controllers\" />
     <Folder Include="Areas\Customer\Views\House\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Customer\" />
