@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
         {
             GenericService<House> generic = new GenericService<House>();
             DynamicParameters parameter = new DynamicParameters();
-            parameter.Add("@cus_ID", house.cus_ID);
+            parameter.Add("@username", house.username);
             parameter.Add("@street_ID", house.street_ID);
             parameter.Add("@district_ID", house.district_ID);
             parameter.Add("@province_ID", house.province_ID);
@@ -45,7 +45,7 @@ namespace WebAPI.Controllers
             GenericService<House> generic = new GenericService<House>();
             DynamicParameters parameter = new DynamicParameters();
             parameter.Add("@hou_ID", house.hou_ID);
-            parameter.Add("@cus_ID", house.cus_ID);
+            parameter.Add("@cus_ID", house.username);
             parameter.Add("@street_ID", house.street_ID);
             parameter.Add("@district_ID", house.district_ID);
             parameter.Add("@province_ID", house.province_ID);

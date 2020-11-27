@@ -9,7 +9,7 @@ namespace WebModels
     public class House
     {
         public long? hou_ID { get; set; }
-        public long? cus_ID { get; set; }
+        public string username { get; set; }
         public long? street_ID { get; set; }
         public long? district_ID { get; set; }
         public long? province_ID { get; set; }
