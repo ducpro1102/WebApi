@@ -10,8 +10,7 @@ namespace WebAPI.Controllers
 {
     public class HouseController : ApiController
     {
-
-        [Authorize]
+        [Authorize(Roles = "Employee,Customer")]
         [HttpPost]
         public IHttpActionResult CreateHouse([FromBody] House house)
         {
@@ -39,6 +38,7 @@ namespace WebAPI.Controllers
             var stdList = generic.ExcuteNoneQuery("pro_add_house", parameter);
             return Ok();
         }
+        [Authorize(Roles = "Employee,Customer")]
         [HttpPost]
         public IHttpActionResult EditHouse([FromBody] House house)
         {
@@ -79,6 +79,7 @@ namespace WebAPI.Controllers
             var stdList = generic.ExcuteMany("pro_view_all_house", parameter);
             return Ok(stdList);
         }
+        [Authorize(Roles = "Employee,Customer")]
         [HttpPost]
         public IHttpActionResult DeleteHouse(int hou_ID)
         {
@@ -97,8 +98,6 @@ namespace WebAPI.Controllers
             var hou = generic.ExcuteSingle("pro_get_house", parameter);
             return Ok(hou);
         }
-
-
         [AllowAnonymous]
         [HttpGet]
         public IHttpActionResult ViewHouse()
