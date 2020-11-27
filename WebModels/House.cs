@@ -8,25 +8,27 @@ namespace WebModels
 {
     public class House
     {
-        public long hou_ID { get; set; }
-        public long cus_ID { get; set; }
-        public long street_ID { get; set; }
-        public long district_ID { get; set; }
-        public long province_ID { get; set; }
-        public long area_ID { get; set; }
-        public long ward_ID { get; set; }
+        public long? hou_ID { get; set; }
+        public long? cus_ID { get; set; }
+        public long? street_ID { get; set; }
+        public long? district_ID { get; set; }
+        public long? province_ID { get; set; }
+        public long? area_ID { get; set; }
+        public long? ward_ID { get; set; }
         public string address_detail { get; set; }
-        public long floor_area { get; set; }
-        public long u_floor_area { get; set; }
-        public long horizontal { get; set; }
-        public long vertical { get; set; }
+        public long? floor_area { get; set; }
+        public long? u_floor_area { get; set; }
+        public long? horizontal { get; set; }
+        public long? vertical { get; set; }
         public string house_category { get; set; }
-        public long nobedroom { get; set; }
-        public long notoilet { get; set; }
+        public long? nobedroom { get; set; }
+        public long? notoilet { get; set; }
         public string direction { get; set; }
         public string h_description { get; set; }
         public string url_image1 { get; set; }
         public string url_image2 { get; set; }
         public string url_image3 { get; set; }
+        public string user_name { get; set; }
+        public long? price { get; set; }
     }
 }

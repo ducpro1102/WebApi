@@ -13,73 +13,68 @@ namespace WebAPI.Controllers
 
         [Authorize]
         [HttpPost]
-        public IHttpActionResult CreateHouse(int cus_ID, int street_ID, int district_ID,
-                                       int province_ID, int area_ID, int ward_ID, string address_detail,
-                                       int? floor_area, int? u_floor_area, int? horizontal, int? vertical,
-                                       string house_category, int? nobedroom, int? notoilet, string direction ,string h_description)
+        public IHttpActionResult CreateHouse([FromBody] House house)
         {
             GenericService<House> generic = new GenericService<House>();
             DynamicParameters parameter = new DynamicParameters();
-            parameter.Add("@cus_ID", cus_ID);
-            parameter.Add("@street_ID", street_ID);
-            parameter.Add("@district_ID", district_ID);
-            parameter.Add("@province_ID", province_ID);
-            parameter.Add("@area_ID", area_ID);
-            parameter.Add("@ward_ID", ward_ID);
-            parameter.Add("@address_detail", address_detail);
-            parameter.Add("@floor_area", floor_area);
-            parameter.Add("@u_floor_area", u_floor_area);
-            parameter.Add("@horizontal", horizontal);
-            parameter.Add("@vertical", vertical);
-            parameter.Add("@house_category", house_category);
-            parameter.Add("@nobedroom", nobedroom);
-            parameter.Add("@notoilet", notoilet);
-            parameter.Add("@direction", direction);
-            parameter.Add("@h_description", h_description);
-
+            parameter.Add("@cus_ID", house.cus_ID);
+            parameter.Add("@street_ID", house.street_ID);
+            parameter.Add("@district_ID", house.district_ID);
+            parameter.Add("@province_ID", house.province_ID);
+            parameter.Add("@area_ID", house.area_ID);
+            parameter.Add("@ward_ID", house.ward_ID);
+            parameter.Add("@address_detail", house.address_detail);
+            parameter.Add("@floor_area", house.floor_area);
+            parameter.Add("@u_floor_area", house.u_floor_area);
+            parameter.Add("@horizontal", house.horizontal);
+            parameter.Add("@vertical", house.vertical);
+            parameter.Add("@house_category", house.house_category);
+            parameter.Add("@nobedroom", house.nobedroom);
+            parameter.Add("@notoilet", house.notoilet);
+            parameter.Add("@direction", house.direction);
+            parameter.Add("@h_description", house.h_description);
+            var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
+            string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
+            parameter.Add("@user_name", strUserName);
             var stdList = generic.ExcuteNoneQuery("pro_add_house", parameter);
             return Ok();
         }
         [HttpPost]
-        public IHttpActionResult EditHouse(int hou_ID, int cus_ID, int street_ID, int district_ID,
-            int province_ID, int area_ID, int ward_ID, string address_detail,
-                                        int floor_area, int u_floor_area, int horizontal, int vertical,
-                                        string house_category, int nobedroom, int notoilet, string direction,string h_description)
+        public IHttpActionResult EditHouse([FromBody] House house)
         {
             GenericService<House> generic = new GenericService<House>();
             DynamicParameters parameter = new DynamicParameters();
-            parameter.Add("@hou_ID", hou_ID);
-            parameter.Add("@cus_ID", cus_ID);
-            parameter.Add("@street_ID", street_ID);
-            parameter.Add("@district_ID", district_ID);
-            parameter.Add("@province_ID", province_ID);
-            parameter.Add("@area_ID", area_ID);
-            parameter.Add("@ward_ID", ward_ID);
-            parameter.Add("@address_detail", address_detail);
-            parameter.Add("@floor_area", floor_area);
-            parameter.Add("@u_floor_area", u_floor_area);
-            parameter.Add("@horizontal", horizontal);
-            parameter.Add("@vertical", vertical);
-            parameter.Add("@house_category", house_category);
-            parameter.Add("@nobedroom", nobedroom);
-            parameter.Add("@notoilet", notoilet);
-            parameter.Add("@direction", direction);
-            parameter.Add("@h_description", h_description);
+            parameter.Add("@hou_ID", house.hou_ID);
+            parameter.Add("@cus_ID", house.cus_ID);
+            parameter.Add("@street_ID", house.street_ID);
+            parameter.Add("@district_ID", house.district_ID);
+            parameter.Add("@province_ID", house.province_ID);
+            parameter.Add("@area_ID", house.area_ID);
+            parameter.Add("@ward_ID", house.ward_ID);
+            parameter.Add("@address_detail", house.address_detail);
+            parameter.Add("@floor_area", house.floor_area);
+            parameter.Add("@u_floor_area", house.u_floor_area);
+            parameter.Add("@horizontal", house.horizontal);
+            parameter.Add("@vertical", house.vertical);
+            parameter.Add("@house_category", house.house_category);
+            parameter.Add("@nobedroom", house.nobedroom);
+            parameter.Add("@notoilet", house.notoilet);
+            parameter.Add("@direction", house.direction);
+            parameter.Add("@h_description", house.h_description);
             var stdList = generic.ExcuteNoneQuery("pro_edit_all_house", parameter);
             return Ok();
         }
-        [HttpGet]
+        [HttpPost]
         [AllowAnonymous]
-        public IHttpActionResult ViewAllHouse(int? province_ID,
-            int? floor_area, string house_category, int? price)
+        public IHttpActionResult ViewAllHouse([FromBody] House house)
         {
             GenericService<House> generic = new GenericService<House>();
             DynamicParameters parameter = new DynamicParameters();
            
-            parameter.Add("@province_ID", province_ID);
-            parameter.Add("@floor_area", floor_area);
-            parameter.Add("@house_category", house_category);
-            parameter.Add("@price", price);
+            parameter.Add("@province_ID", house.province_ID);
+            parameter.Add("@floor_area", house.floor_area);
+            parameter.Add("@house_category", house.house_category);
+            parameter.Add("@price", house.price);
 
             var stdList = generic.ExcuteMany("pro_view_all_house", parameter);
             return Ok(stdList);
