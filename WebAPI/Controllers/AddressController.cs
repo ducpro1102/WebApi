@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IHttpActionResult ViewProvince()
         {
-            var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
+            //var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
             //string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
             //string strFullName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "FullName").Value;
 
