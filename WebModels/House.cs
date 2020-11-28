@@ -11,10 +11,15 @@ namespace WebModels
         public long? hou_ID { get; set; }
         public string username { get; set; }
         public long? street_ID { get; set; }
+        public string name_street { get; set; }
         public long? district_ID { get; set; }
+        public string name_district { get; set; }
         public long? province_ID { get; set; }
+        public string name_province { get; set; }
         public long? area_ID { get; set; }
+        public string name_area { get; set; }
         public long? ward_ID { get; set; }
+        public string name_ward { get; set; }
         public string address_detail { get; set; }
         public long? floor_area { get; set; }
         public long? u_floor_area { get; set; }
