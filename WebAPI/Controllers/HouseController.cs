@@ -1,6 +1,11 @@
 ﻿using Dapper;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Web.Http;
 using WebModels;
@@ -16,7 +21,6 @@ namespace WebAPI.Controllers
         {
             GenericService<House> generic = new GenericService<House>();
             DynamicParameters parameter = new DynamicParameters();
-            parameter.Add("@username", house.username);
             parameter.Add("@street_ID", house.street_ID);
             parameter.Add("@district_ID", house.district_ID);
             parameter.Add("@province_ID", house.province_ID);
@@ -34,9 +38,39 @@ namespace WebAPI.Controllers
             parameter.Add("@h_description", house.h_description);
             var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
             string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
-            parameter.Add("@user_name", strUserName);
+            parameter.Add("@username", strUserName);
             var stdList = generic.ExcuteNoneQuery("pro_add_house", parameter);
             return Ok();
+        }
+        [Authorize(Roles = "Employee,Customer")]
+        [HttpPost]
+        public IHttpActionResult CreateHouseMoblie([FromBody] House house)
+        {
+            GenericService<House> generic = new GenericService<House>();
+            DynamicParameters parameter = new DynamicParameters();
+            parameter.Add("@street_ID", house.street_ID);
+            parameter.Add("@district_ID", house.district_ID);
+            parameter.Add("@province_ID", house.province_ID);
+            parameter.Add("@area_ID", house.area_ID);
+            parameter.Add("@ward_ID", house.ward_ID);
+            parameter.Add("@address_detail", house.address_detail);
+            parameter.Add("@floor_area", house.floor_area);
+            parameter.Add("@u_floor_area", house.u_floor_area);
+            parameter.Add("@horizontal", house.horizontal);
+            parameter.Add("@vertical", house.vertical);
+            parameter.Add("@house_category", house.house_category);
+            parameter.Add("@nobedroom", house.nobedroom);
+            parameter.Add("@notoilet", house.notoilet);
+            parameter.Add("@direction", house.direction);
+            parameter.Add("@h_description", house.h_description);
+            var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
+            string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
+            parameter.Add("@username", strUserName);
+            var stdList = generic.ExcuteNoneQuery("pro_add_house", parameter);
+            MgsResult objMgsResult = new MgsResult();
+            objMgsResult.state = 1;
+            objMgsResult.message = "Ok";
+            return Json(objMgsResult);
         }
         [Authorize(Roles = "Employee,Customer")]
         [HttpPost]
@@ -116,6 +150,27 @@ namespace WebAPI.Controllers
             GenericService<House> generic = new GenericService<House>();
             var stdList = generic.ExcuteMany("view_all_house", null);
             return Ok(stdList);
+        }
+        [HttpGet]
+        public HttpResponseMessage GenerateFile(string fileName)
+        {
+            FileStream fs = new FileStream(ConfigurationManager.AppSettings["LocationImage"] + fileName, FileMode.Open, FileAccess.Read);
+            MemoryStream stream = new MemoryStream();
+            fs.CopyTo(stream);
+            // processing the stream.
+
+            var result = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ByteArrayContent(stream.ToArray())
+            };
+            result.Content.Headers.ContentDisposition =
+                new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = fileName
+                };
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+
+            return result;
         }
     }
 }
