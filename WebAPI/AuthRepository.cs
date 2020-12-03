@@ -30,8 +30,16 @@ namespace WebAPI
             };
 
             var result = await _userManager.CreateAsync(user, userModel.Password);
-            await _userManager.AddClaimAsync(user.Id, new Claim("FullName", userModel.FullName));
-            await _userManager.AddClaimAsync(user.Id, new Claim("Address", userModel.Address));
+            if(userModel.FullName!=null)
+                await _userManager.AddClaimAsync(user.Id, new Claim("FullName", userModel.FullName));
+            if (userModel.Address != null)
+                await _userManager.AddClaimAsync(user.Id, new Claim("Address", userModel.Address));
+            if(userModel.RoleName !=null)
+                await _userManager.AddClaimAsync(user.Id, new Claim("Role", userModel.RoleName));
+            if (userModel.RoleName != null)
+                await _userManager.AddToRoleAsync(user.Id, userModel.RoleName);
+            else
+                await _userManager.AddToRoleAsync(user.Id, "Customer");
             return result;
         }
 
@@ -46,6 +54,12 @@ namespace WebAPI
             IdentityUser user = await _userManager.FindAsync(userName, password);
             var lstClaim = await _userManager.GetClaimsAsync(user.Id);
             return lstClaim;
+        }
+        public async Task<IList<string>> FindAllRoles(string userName, string password)
+        {
+            IdentityUser user = await _userManager.FindAsync(userName, password);
+            var lst = await _userManager.GetRolesAsync(user.Id);
+            return lst;
         }
         public void Dispose()
         {

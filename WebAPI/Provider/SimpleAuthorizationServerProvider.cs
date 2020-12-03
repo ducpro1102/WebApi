@@ -32,10 +32,14 @@ namespace WebAPI.Provider
             var claims = await _repo.FindAllClaims(context.UserName, context.Password);
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim("UserName", context.UserName));
-            identity.AddClaim(new Claim(ClaimTypes.Role, "Customer"));
             foreach(var claim in claims)
             {
                 identity.AddClaim(new Claim(claim.Type, claim.Value));
+            }
+            var roles = await _repo.FindAllRoles(context.UserName, context.Password);
+            foreach (var str in roles)
+            {
+                identity.AddClaim(new Claim(ClaimTypes.Role, str));
             }
             context.Validated(identity);
 

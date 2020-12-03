@@ -23,13 +23,13 @@ namespace WebModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
-        [Required]
+        
         [Display(Name = "Full name")]
         public string FullName { get; set; }
-
-        [Required]
+        
         [Display(Name = "Address")]
         public string Address { get; set; }
+        [Display(Name = "RoleName")]
+        public string RoleName { get; set; }
     }
 }

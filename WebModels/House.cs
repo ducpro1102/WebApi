@@ -36,6 +36,5 @@ namespace WebModels
         public string url_image1 { get; set; }
         public string url_image2 { get; set; }
         public string url_image3 { get; set; }
-        public string user_name { get; set; }
     }
 }
