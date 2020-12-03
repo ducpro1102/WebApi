@@ -132,6 +132,17 @@ namespace WebAPI.Controllers
             var hou = generic.ExcuteSingle("pro_get_house", parameter);
             return Ok(hou);
         }
+        [HttpGet]
+        public IHttpActionResult ViewHouseByU()
+        {
+            GenericService<House> generic = new GenericService<House>();
+            DynamicParameters parameter = new DynamicParameters();
+            var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;
+            string strUserName = claimsIdentity.Claims.FirstOrDefault(c => c.Type == "UserName").Value;
+            parameter.Add("@username", strUserName);
+            var hou = generic.ExcuteMany("pro_view_house_by_u", parameter);
+            return Ok(hou);
+        }
         [AllowAnonymous]
         [HttpGet]
         public IHttpActionResult ViewHouse()
@@ -154,6 +165,10 @@ namespace WebAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GenerateFile(string fileName)
         {
+            if(fileName==null)
+            {
+                fileName = "";
+            }    
             FileStream fs = new FileStream(ConfigurationManager.AppSettings["LocationImage"] + fileName, FileMode.Open, FileAccess.Read);
             MemoryStream stream = new MemoryStream();
             fs.CopyTo(stream);
