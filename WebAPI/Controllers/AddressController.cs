@@ -14,6 +14,7 @@ namespace WebAPI.Controllers
     public class AddressController : ApiController
     {
         [HttpGet]
+        //[Authorize(Roles = "Admin")]
         public IHttpActionResult ViewProvince()
         {
             //var claimsIdentity = (ClaimsIdentity)RequestContext.Principal.Identity;

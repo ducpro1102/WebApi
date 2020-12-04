@@ -109,6 +109,7 @@ namespace WebAPI.Controllers
             parameter.Add("@floor_area", house.floor_area);
             parameter.Add("@house_category", house.house_category);
             parameter.Add("@price", house.price);
+            parameter.Add("@b_description", house.b_description);
 
             var stdList = generic.ExcuteMany("pro_view_all_house", parameter);
             return Ok(stdList);
@@ -142,6 +143,16 @@ namespace WebAPI.Controllers
             parameter.Add("@username", strUserName);
             var hou = generic.ExcuteMany("pro_view_house_by_u", parameter);
             return Ok(hou);
+        }
+
+        [HttpGet]
+        public IHttpActionResult ViewImage(int hou_ID)
+        {
+            GenericService<Image> generic = new GenericService<Image>();
+            DynamicParameters parameter = new DynamicParameters();
+            parameter.Add("@hou_ID", hou_ID);
+            var img = generic.ExcuteMany("pro_get_image_house", parameter);
+            return Ok(img);
         }
         [AllowAnonymous]
         [HttpGet]
